@@ -104,7 +104,7 @@
 
 setcps (140/60/4)
 
-
+-- LIVE CODING START HERE
 d5
 $ stut' 4 (1/8*1.5) (# gain 0.8)
     $ every 2 (off (2/8) (hurry "2 3"))
@@ -181,6 +181,8 @@ $ up p3
 -- # end (range 0 1 $ saw)
 -- # legato "1 2 3"
 # speed "1 2"
+
+--LIVE CODING STOPS HERE
 
 -- pattern 1
 do
