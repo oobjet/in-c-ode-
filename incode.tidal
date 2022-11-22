@@ -1,0 +1,416 @@
+-- in c(ode)
+-- terry riley / tidal cycles
+-- 1964 / 2021
+
+-- in 1964, Terry Riley composed "in C", a pattern based piece
+-- in 2006, Alex McLean  wrote "Tidal Cycles", a program to play pattern based music
+-- in 2021, I did what I had to do !
+
+-- is in C in C ? In Haskell ? In Tidal ?
+
+-- can you believe it's music from 1964 ?
+
+    let p1 = "{[e3[~ c3]] [e3[~ c3]] [e3[~ c3]]}%4"
+        p2 = "{[e4 f4] [e4[~ c4]]}%4"
+        p3 = "{[~ e4][f4 e4]}%4"
+        p4 = "{[~ e4][f4 g4]}%4"
+        p5 = "{[e3 f3][g3 ~]}%4"
+        p6 = "{c4/8}%4"
+        p7 = "{~ ~ ~ [~ [e3 e3]] [e3 ~] ~ ~ ~ ~ }%4"
+        p8 = "{g3 ~ ~ ~ ~ ~ f3 ~ ~ ~ ~ ~ ~ ~ }%4"
+        p9 = "{[b4 g4 ~ ~] ~ ~ ~ ~}%4"
+        p10 = "{[b4 g4]*2}%4"
+        p11 = "{f3 g3 b3 g3 b3 g3}*8%3"
+        p12 = "{[f3 g3] b3 ~ ~ ~ c4}%4"
+        p13 = "{[[b3 g3] ~] [~ g3] [f3 g3] ~  g3 ~ }%4"
+        p14 = "{c4 b3 g3 fs3}%1"
+        p15 = "[g3 ~] ~ ~ ~ "
+        p16 = "{g4 b4 c4 b4}%16"
+        p17 = "{b4 c5 b4 c5 b4 ~}%16"
+        p18 = "{[e4 fs4 e4 fs4] [e4 [~ e4]]}%4"
+        p19 = "{~ [~ g5] ~}%4"
+        p20 = "{[e4 fs4 e4 fs4] [g3 [~ e4]] [fs4 e4 fs4 e4]}%4"
+        p21 = "{fs4/3}%4"
+        p22 = "{e4 ~ ~ e4 ~ ~ e4 ~ ~ e4 ~ ~ e4 ~ ~ fs4 ~ ~ g4 ~ ~ a4 ~ ~ b4}%8"
+        p23 = "{e4 fs4 ~ ~ fs4 ~ ~ fs4 ~ ~ fs4 ~ ~ fs4 ~ ~ g4 ~ ~ a4 ~ ~ b4 ~ }%8"
+        p24 = "{e4 fs4 g4 ~ ~ g4 ~ ~ g4 ~ ~ g4 ~ ~ g4 ~ ~ a4 ~ ~ b4}%8"
+        p25 = "{[d4 fs4 g4] a4 [~ a4] ~ a4 [~ a4] ~ a4 [~ b4] ~ }%4"
+        p26 = "{e4 fs4 g4 a4 ~ ~ a4 ~ ~ a4 ~ ~ a4 ~ ~ a4 ~ ~ b4 ~ ~ }%8"
+        p27 = "{[e4 fs4 e4 fs4] [g4 [e4 g4]] [fs4 e4 fs4 e4]}%4"
+        p28 = "{[e4 fs4 e4 fs4] [e4 [~ e4]]}%4"
+        p29 = "{e4 ~ ~ g4 ~ ~ c4 ~ ~ }%4"
+        p30 = "{c5 ~ ~}%2"
+        p31 = "{g4 e4 g4 b4 g4 b4}%16"
+        p32 = "{f4 g4 f4 g4 b4 f4 ~@12 g4 ~@5}%16"
+        p33 = "{g4 f4 ~@2}%16"
+        p34 = "{g4 f4}%16"
+        p35 = "{[f4 g4] [b4 g4] [b4 g4] [b4 g4] [b4 g4] ~ ~@6 bf4 ~ g5 ~@5 a5 g5 ~ b5 a5 ~@2 g5 e5 ~@5 g5 f5 ~@6 ~@5 e5 ~@4 f5 ~@11}%8"
+        p36 = "{f4 g4 b4 g4 b4 g4}%16"
+        p37 = "{f5 g5}%16"
+        p38 = "{f5 g5 b5}%16"
+        p39 = "{b4 g4 f4 g4 b4 c5}%16"
+        p40 = "{b4 f4}%16"
+        p41 = "{b4 g4}%16"
+        p42 = "{c5 b4 g4 c5}%1"
+        p43 = "{[f5 e5] [f5 e5] e5 e5 e5 [f5 e5]}%8"
+        p44 = "{f5 e5 ~ e5 c5 ~}%8"
+        p45 = "{d5 d5 g4}%4"
+        p46 = "{[g4 d5] [e5 d5] [~ g4] [~ g4] [~ g4] [g4 d5][e5 d5]}%8"
+        p47 = "{[d4 e4] d4}%8"
+        p48 = "{g4 ~@2 g4 ~ f4 ~@4}%2"
+        p49 = "{f4 g4 bs4 g4 bs4 g4}%16"
+        p50 = "{f4 g4}%16"
+        p51 = "{f4 g4 bf4}%16"
+        p52 = "{g4 bf4}%16"
+        p53 = "{bf4 g4}%16"
+        t1 p = (# pan "0.1 0.3 0.6 0.9") $ p
+        t2 p = (# lpf (slow 5 $ rangex 400 4000 sine)) $ p
+        t3 p = every 4 (stut 4 0.125 0.25) $ p # cut 0
+        t4 p = every 4 (jux(rev)) $ p # shape 0.3 # hpf (rangex 200 5000 rand) # crush "<6 8>"
+        t5 p = every 4 (0.125 ~>) $ p # coarse 3 # room 0.1 # pan 0.7
+        t6 p = (jux (# octersubsub "2 3")) $ p
+        t7 p = every 5 (jux (0.5 ~>)) $ (jux (0.25 ~>)) $ p # legato 1
+        t8 p = p # room "<0.11 0.3 0.2>"
+        t9 p = juxBy 0.2 (stut' 3 0.125 (# speed "1 2 3")) $ p # pan (slow 4 $ sine) # legato 1
+        t10 p = jux (# speed 2) $ p # gain (slow 5 $ range 0.3 1 sine) # legato 1
+        t11 p = off 0.25 (# vowel "<a o i>") $ p
+        t12 p = juxBy 0.3 (const $ s "bd*4") $ p
+        t13 p = juxBy 0.6 (const $ s "[~ hh]*4") $ p
+        t14 p = juxBy 0.6 (rev) $ p
+        t15 p = iter 8 $ p
+        t16 p = stut' 4 0.125 (rev) $ p
+        t17 p = rev $ stut' 4 0.25 (# speed 2) $ p # cut 0
+        t18 p = (# end "0.02") . (|* speed "1.25") $  p 
+        t19 p = stutWith 16 (0.0625/2) ( (|* gain 0.95) . (|* speed 1.1) ) $ p
+        t20 p = stutWith 2 (0.125/2) id $ p
+        t21 p = spin 2 $ p
+        t22 p = p # pan ((run 10)/10)
+        t23 p = every 3 (# pan ((run 10)/10)) $ p
+        t24 p = every 5 (# pan ((run 10)/20)) $ p
+        t25 p = every 7 (# pan ((run 5)/10)) $ p
+        t26 p = every 11 (# pan ((run 10)/10)) $ p
+        t27 p = repeatCycles 4 $ p # crush (irand 8) 
+
+
+
+
+
+
+
+
+-- attack, release, off 0.01 (+ 0.985)
+
+
+
+setcps (140/60/4)
+
+
+d5
+$ stut' 4 (1/8*1.5) (# gain 0.8)
+    $ every 2 (off (2/8) (hurry "2 3"))
+    $ s "as:1"
+    * speed ("[3 4 1 2]*2" * "<1 2 3 4>")
+
+d5 silence
+
+resetCycles
+
+d1
+-- $ sometimes (hurry 2)
+-- $ stut' 16 (1/8*1.5) (# gain 0.6)
+$ up p1
+# s "[op:2]"
+-- # squiz ("2 1" * "1")
+# cut 4
+-- * squiz "8 4 2"
+-- # legato "{0.2 0.5 1 1 0.7}%4"
+-- # loop (range 0 4 (slow 3 sine))
+# gain "{0.8 1 1.0}%4"
+# legato (range 0 1 (slow 18 saw))
+
+d1 silence
+
+d2
+$ off 0.01 (+ 0.995)
+-- $ sometimes (hurry 4)
+-- $ stut' 2 (1/8) (# gain 0.6)
+-- $ off 0.125 (# crush "{2 3 4}%4")
+-- $ off 0.5 (# speed "2")
+$ up p2
+# s "[op:3]"
+-- # legato "0.2 0.5 1 1"
+-- # pan "{0 1 0 1 1 1}%4"
+# lpf (range 300 3000 (slow 3 $ sine))
+# gain 1
+-- # cut 3
+# legato "1"
+* speed "2"
+
+d2 silence
+ 
+d3 
+-- $ jux (rev)
+-- $ ((6/8) ~>)
+-- $ stut' 1 (3/8*1.5) ((# gain 0.8) . (# pan 0.2))
+$ up p3
+# speed "{1 2 1}%4"
+# s "[op:1]"
+# pan (range 200 2000 (slow 7 $ saw))
+-- # lpf (range 300 3000 (slow 3 $ cosine))
+# legato "1"
+-- # attack (range 0 0.5 (slow 1.3 sine))
+-- # release (range 0 0.5 (slow 1.5 sine))
+# speed "0.5 2 1"
+-- # loop "2 4 7"
+-- # cut "1 2 3 4"
+
+d3 silence
+
+d4
+$ ((3/8) ~>)
+-- $ off (2/8) (# speed 2)
+-- $ stut' 4 (1/16*1.5) ((# gain 0.8) . (# pan 0.2))
+-- $ every 3 ((# speed "{3 2 1}%4"). (# pan "08 1"))
+$ up p3
+# s "[op:1]"
+# loop "2 4 8"
+# legato "{1 2 3}%4"
+-- # pan (range 0 1 (slow 25 $ sine))
+-- # lpf (range 100 6000 (slow 3 $ cosine))
+-- # crush "4 8 16"
+-- # end (range 0 1 $ saw)
+-- # legato "1 2 3"
+# speed "1 2"
+
+-- pattern 1
+do
+    resetCycles
+    d1 $ t1 $ up p1 # s "arpy" # cut 1 # crush "4 3 6" # legato (range 0 1 $ slow 32 $ saw)
+
+-- pattern 2
+d2 $ every 3 (rev) $ t2 $ up p2 # s "[juno:1]" # cut 2 # legato (range 0 1 $ slow 64 $ saw)
+
+-- pattern 3
+d3 $ jux (# speed 2) $ t3 $ up p3 # s "arpy" # cut 3
+
+-- pattern 4
+d4 $ stack[
+    t4 $ up p4 # s "[casio:1]" # cut 4,
+    t4 $ up p4 # s "ah:1" 
+    ] + crush "4 2 1 3"
+
+-- pattern 5
+d2 $ juxBy 0.3 (stut' 4 0.125 (# speed "2 3 4")) $ t5 $ stack[
+    up p5 # s "casio" # cut 5,
+    up p33  # s "bd:6" # pan rand # crush "1 2 0" # cut 1 * gain "0.8 0.7 0.9"
+    ]
+
+--pattern 6
+d3 $ stack [
+    t6 $ up p6 # s "op:3" # cut 6,
+    up p34  # s "sn:7" # pan rand # crush "1 2 1 3" # cut 1 # gain 0.8
+    ] # speed " 1 1 2 4"
+
+--pattern 7
+d4 $ t7 $ up p7 # s "arpy" # cut 1 # room "0 0 0 0.2" # orbit 4
+
+-- pattern 8
+xfadeIn 1 8 $ t8 $ up p8 # s "op:4" # cut 2 # gain "1.4"
+
+--pattern 9
+d2 $ t9 $ up p9 # s "arpy" # cut 3 # legato (range 0 1 $ slow 4 $ sine)
+
+--pattern 10
+d3 $ t10 $ up p10 # s "arpy" # cut 4
+
+--pattern 11
+d4 $ t11 $ up p11 # s "casio:1" # gain 0.8 # cut 4
+
+--pattern 12
+d1 $ t12 $ up p12 # s "op:9" # cut 1
+
+--pattern 13
+d2 $ t13 $ up p13 # s "op:12" # cut 2
+
+--pattern 14
+d3 $ t14 $ up p14 # s "op:1" # cut 3 # gain 1.1 * speed "0 1 2 4"
+
+--pattern 15
+d4 $ t15 $ up p15 # s "op:11" # djf (slow 4 $ sine)
+
+--pattern 16
+d1 $ t16 $ stack [
+    up p16 # s "[op:12]" # gain 0.8 # lpf (slow 16 $ rangex 2000 20000 sine) # cut 3,
+    up p16 # s "bd:2" # crush "1 0 1 0 0 1 0 1" # gain 0.7
+    ]
+
+--pattern 17
+d2 $ t17 $ up p17 # s "[808:4 sine:2]" # cut 4
+
+--pattern 18
+d3 $ t18 $ up p18 # s "[bd:4]" # cut 1
+
+--pattern 19
+d4 $ t19 $ up p19 # s "casio:3" # cut 4
+
+--pattern 20
+xfadeIn 1 8 $ t20 $ up p20 # s "arpy:0"
+
+--pattern 21
+xfadeIn 2 8 $ t21 $ up p21 # s "[op:3]" # pan 0.1 # speed "2 4" # cut 1
+
+--pattern 22
+xfadeIn 3 16 $ t22 $ up p22 # s "[op:4]" # cut 2
+
+--pattern 23
+xfadeIn 4 16 $ t23 $ up p23 # s "op:4" # cut 3
+
+--pattern 24
+xfadeIn 1 16 $ t24 $ up p24 # s "op:4" # cut 4 # room 0.1
+
+--pattern 25
+xfadeIn 2 16 $ t25 $ up p25 # s "op:4" # cut 5 # room 0.2
+
+--pattern 26
+xfadeIn 3 16 $ t26 $ up p26 # s "op:4" # cut 6 # room 0.3
+
+d1 silence
+
+d6 silence
+
+--pattern 27
+d1 $ juxBy 0.8 (# speed (repeatCycles 4 $ choose [1, -1])) $ up p27 # s "op:8" #  cut 1 
+
+--pattern 28
+d2 $ t8 $ stack [
+    up p28 # s "op:10" # speed 4 # cut 2,
+    up p28 # s "sn:3" # speed 4 # cut (-2) + gain "0.8 0.6 0.7"
+]
+
+--pattern 29
+d3 $ t9 $ stack [
+    up p29 # s "op:12" # cut 3 # room 0.3,
+    up p29 # s "hardkick" # cut (-4) # room 0.3 + gain "0.9 1 0.5"
+]
+
+--pattern 30
+d4 $ t10 $ up p30 # s "op:12" + cut "2 3 1" # room 0.4
+
+--pattern 31
+d1 $ t11 $ stack [
+    up p31 # s "[op:13]" # room 0.2 # gain (slow 8 $ range 0.3 1.1 $ sine) # cut 4,
+    up p31 # s "808:1" # room 0.2 + gain "0.9 0.4 0.5" + pan "0 1 0"
+]
+
+--pattern 32
+d2 $ t12 $ stack [
+    up p32 # s "[op:13]" # pan rand # room 0.1 # gain (slow 10 $ range 0.8 1 $ sine) # cut 1,
+    up p32 # s "[808:4]" # pan rand # room 0.1 + gain "0.9 0.8 0.7 0.6"
+]
+
+--pattern 33
+d3 $ t13 $ stack [
+    up p33  # s "[op:1]" # pan rand # room 0 # gain (slow 7 $ range 0.8 1 $ sine) # cut 3,
+    up p33  # s "bd:6" # pan rand + crush "1 2 0" + gain "0.8 0.9 0.7"
+]
+
+--pattern 34
+d4 $ t14 $ stack[
+    up p34 # s "[op:1]" # pan rand # lpf (rangex 1000 10000 $ sine) # cut 4,
+    up p34 # s "hh:4" # pan rand # lpf (rangex 1000 10000 $ sine) # crush 3 # cut 1
+]
+
+--pattern 35 
+d1 $ superimpose ((repeatCycles 8 $ choose [8, 12, 24]) ~>) $ up p35 # s "op:4" # vowel "a e u i" # speed "[1 1.01 0.99]*4" # end 0.1
+
+--pattern 36
+d2 $ t16 $ stack [
+    up p36 # s "op:4" # cut 1,
+    up p36 # s "hh:6?" # cut 2
+]
+
+--pattern 37
+d3 $ t17 $ up p37 # s "op:4" # pan rand # cut 2 # gain "0.8 0.3" # cut 4
+
+--pattern 38
+d4 $ t18 $ stack [
+    up p38 # s "op:4" # pan 0.1 # cut 3,
+    up p38 # s "808:3" + pan "0.9 0.7 0.3 0"  # cut 3
+    ]
+
+--pattern 39
+d1 $ t19 $  up p39 # s "op:4" # pan 0.9 # cut 1
+
+--pattern 40
+d2 $ t20 $  up p40 # s "[op:8]" # cut 4
+
+--pattern 41
+d3 $ t1 $ stack [
+    t2 $ up p41 # s "op:8" # cut 1,
+    t3 $ n p41 # s "digi:2(5,8)" # cut 2 # crush "0.8 1.3 2.4"
+]
+
+--pattern 42
+d4 $ t2 $ stack [
+    up p42 # s "op:9" # cut 5,
+    n p42 # s "drum" # cut 2 
+] # gain "1.3 1.2"
+
+--pattern 43
+d1 $ t3 $ up p43 # s "[op:9]" # cut 3
+
+--pattern 44
+d2 $ t4 $ up p44 # s "op:1" # cut 4
+
+--pattern 45
+d3 $ t5 $ up p45 # s "op:11" # cut 3
+
+--pattern 46
+xfadeIn 8 4 $ t6 $ up p46 # s "op:13" # cut 1
+
+--pattern 47
+d1 $ t7 $ up p47 # s "op:13" # cut "2*2 3/3 4*4"
+
+--pattern 48
+d2 $ t8 $ up p48 # s "op:12" # cut 2
+
+--pattern 49
+d3 $ t9 $ up p49 # s "op:12" # cut 1
+
+--pattern 50
+d4 $ t10 $ stack [
+    up p50 # s "[op:12]" # cut 3,
+    n p50 # s "808" # cut 4 # room "0.1 0.2 0.3"
+] # vowel "a e u i e"
+
+--pattern 51
+d1 $ t11 $ up p51 # s "[op:13]" # cut 1
+
+--pattern 52
+d2 $ t12 $ stack [
+    up p52 # s "[op:13]" # pan 0.2 # cut 2,
+    n p52 # s "digi:5" # pan "0.2 0.3? 0.8" # cut 3
+]
+
+--pattern 53
+d3 $ t13 $ up p53 # s "[drum, op:13]" # gain (slow 9 $ range 0 1 sine) # pan (slow 3 $ range 0 1 sine)
+
+d4 $ t14 $ up p53 # s "[op:13, house]" # pan 0.4 # gain (slow 9 $ range 0 1 sine)# pan (slow 2 $ range 0 1 sine)
+
+d1 $ t15 $ up p53 # s "[hauntology:5]" # pan 0.6 # gain (slow 11 $ range 0 1 sine)# pan (slow 1 $ range 0 1 sine)
+
+d2 $ t16 $ up p53 # s "[noiz-02:3]" # pan 0 # gain (slow 13 $ range 0 1 sine)# pan (slow 4 $ range 0 1 sine)
+
+d3 $ t17 $ up p53 # s "[digi:3]" # pan 1 # gain (slow 17 $ range 0 1 sine)# pan (slow 5 $ range 0 1 sine)
+
+d4 $ t18 $ up p53 # s "[vamps:3]" # room (sine) # cut "1" # gain (slow 11 $ range 0 1 sine)# pan (slow 5 $ range 0 1 sine)
+
+d3 silence
+
+d4 silence
+
+d1 silence
+
+d2 silence
+
+
