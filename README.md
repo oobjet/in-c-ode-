@@ -13,4 +13,4 @@ mantra of live coders.
     Is in C in C ? In Haskell ? In Tidal ?
 
 You can listen to a rendition of this piece here :
-[in-c-ode)(https://soundcloud.com/objet/incode)
+[in-c-ode](https://soundcloud.com/objet/incode)
